@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CLIENTES } from './clientes.json';
 import { Cliente } from './cliente';
 import { Observable, of, map, catchError, throwError, tap } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { formatDate, DatePipe, registerLocaleData } from '@angular/common';
@@ -105,9 +104,21 @@ export class ClienteService {
       catchError(e => {
         console.log(e.error.mensaje);
         swal(e.error.error, e.error.mensaje, 'error')
-        return throwError(e)
+        return throwError(() => e)
       })
     )
+  }
+
+  subirFoto(archivo: File, id):Observable<HttpEvent<{}>>{
+    let formData = new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id", id);
+
+    const req = new HttpRequest("POST", `${this.urlEndPoint}/upload`, formData,{
+      reportProgress:true
+    })
+
+    return this.http.request(req);
   }
 
 }

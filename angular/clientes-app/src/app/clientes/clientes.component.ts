@@ -4,6 +4,7 @@ import { tap } from 'rxjs';
 import swal from 'sweetalert2';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
+import { ModalService } from './detalle/modal.service';
 
 
 @Component({
@@ -13,34 +14,49 @@ import { ClienteService } from './cliente.service';
 })
 export class ClientesComponent {
   clientes: Cliente[];
-  paginador:any;
+  paginador: any;
+  clienteSeleccionado: Cliente;
+
+
   constructor(
     private clienteService: ClienteService,
-    private activatedRouter:ActivatedRoute) { };
-  
+    private activatedRouter: ActivatedRoute,
+    private modalService: ModalService
+  ) { };
+
   ngOnInit() {
-   
-    this.activatedRouter.paramMap.subscribe( params => {
-    let page:number =+params.get('page');
-    if(!page){
-      page = 0
-    }
-    this.clienteService.getClientes(page)
-    .pipe(tap(
-      response => {
-      console.log('ClientesComponent: tap 3');
-      (response.content as Cliente[]).forEach(
-        cliente =>{
-          console.log(cliente.nombre);
-          
-        }
-      )
-    }))
-    .subscribe(response => {
-      this.clientes = response.content as Cliente[];
-      this.paginador = response;
+
+    this.activatedRouter.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0
+      }
+      this.clienteService.getClientes(page)
+        .pipe(tap(
+          response => {
+            console.log('ClientesComponent: tap 3');
+            (response.content as Cliente[]).forEach(
+              cliente => {
+                console.log(cliente.nombre);
+
+              }
+            )
+          }))
+        .subscribe(response => {
+          this.clientes = response.content as Cliente[];
+          this.paginador = response;
+        });
     });
-  });
+
+    this.modalService.notificarUpload.subscribe(cliente => {
+      this.clientes = this.clientes.map(clienteOriginal => {
+        if(cliente.id == clienteOriginal.id){
+          clienteOriginal.foto = cliente.foto;
+        }
+        return clienteOriginal;
+
+      })
+    })
   }
 
   delete(cliente: Cliente): void {
@@ -73,5 +89,10 @@ export class ClientesComponent {
 
       }
     })
+  }
+
+  abrirModal(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
+    this.modalService.abrirModal();
   }
 }
