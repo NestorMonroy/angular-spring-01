@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.backend.apirest.models.entity.Cliente;
+import mx.backend.apirest.models.entity.Region;
 import mx.backend.apirest.models.services.IClienteService;
 import mx.backend.apirest.models.services.IUploadFileService;
 
@@ -158,6 +159,7 @@ public class ClienteRestController {
 			clienteActual.setApellido(cliente.getApellido());
 			clienteActual.setEmail(cliente.getEmail());
 			clienteActual.setCreateAt(cliente.getCreateAt());
+			clienteActual.setRegion(cliente.getRegion());
 			clienteUpdate = clienteService.save(clienteActual);
 
 		} catch (DataAccessException e) {
@@ -242,5 +244,9 @@ public class ClienteRestController {
 		return new ResponseEntity<Resource>(recurso,cabecera, HttpStatus.OK);
 	}
 	
-
+	
+	@GetMapping("/clientes/regiones")
+	public List<Region> listarRegiones(){
+		return clienteService.findAllRegiones();
+	}
 }
