@@ -1,4 +1,14 @@
 
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('nestor','$2a$10$MB.328OFDBXJJxTV.graMe0T5xZKehJEXTuX4V498lIENQyGeBd7y',1, 'nestor', 'usuario', 'abc@abc.com');
+INSERT INTO `usuarios` (username, password, enabled, nombre, apellido, email) VALUES ('admin','$2a$10$qwNDGP31cXfdDr0OfPSD2.N37SR/Ci37kYXk1qYwm7ctQNJhLuIMW',1, 'admin', 'admin', 'abc1@abc.com');
+
+INSERT INTO roles (nombre) VALUES ('ROLE_USER');
+INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
+
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (1, 1);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 2);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 1);
+
 INSERT INTO regiones (id, nombre) VALUES (1, 'Sudamérica');
 INSERT INTO regiones (id, nombre) VALUES (2, 'Centroamérica');
 INSERT INTO regiones (id, nombre) VALUES (3, 'Norteamérica');
