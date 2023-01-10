@@ -5,6 +5,7 @@ import { ClienteService } from '../cliente.service';
 import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
+import { AuthService } from 'src/app/usuarios/auth.service';
 
 @Component({
   selector: 'detalle-cliente',
@@ -21,7 +22,8 @@ export class DetalleComponent {
 
 
   constructor(private clienteService: ClienteService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    public authService: AuthService
     ){
 
   }

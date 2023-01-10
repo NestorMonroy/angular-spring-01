@@ -27,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -72,6 +73,7 @@ public class ClienteRestController {
 		return clienteService.findAll(pageable);
 	};
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 
@@ -98,6 +100,7 @@ public class ClienteRestController {
 	}
 
 	@PostMapping("/clientes")
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
 		Cliente clienteNew = null;
 		Map<String, Object> response = new HashMap<>();
@@ -132,6 +135,7 @@ public class ClienteRestController {
 	}
 
 	@PutMapping("/clientes/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
 
 		Cliente clienteActual = clienteService.findById(id);
@@ -176,6 +180,7 @@ public class ClienteRestController {
 	}
 
 	@DeleteMapping("/clientes/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 
@@ -195,6 +200,7 @@ public class ClienteRestController {
 	}
 	
 	@PostMapping("/clientes/upload")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
 		Map<String, Object> response = new HashMap<>();
 		
@@ -246,6 +252,7 @@ public class ClienteRestController {
 	
 	
 	@GetMapping("/clientes/regiones")
+	@Secured({"ROLE_ADMIN"})
 	public List<Region> listarRegiones(){
 		return clienteService.findAllRegiones();
 	}
