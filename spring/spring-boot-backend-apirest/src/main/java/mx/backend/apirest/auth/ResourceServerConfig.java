@@ -1,4 +1,4 @@
-package mx.backend.apirest;
+package mx.backend.apirest.auth;
 
 import java.util.Arrays;
 

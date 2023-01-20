@@ -20,6 +20,7 @@
                     <th>apellido</th>
                     <th>email</th>
                     <th>fecha</th>
+                    <th *ngIf="authService.hasRole('ROLE_ADMIN')">Crear factura</th>
                     <th *ngIf="authService.hasRole('ROLE_ADMIN')"></th>
                     <th *ngIf="authService.hasRole('ROLE_ADMIN')"></th>
                 </tr>
@@ -42,6 +43,10 @@
                     </td>
                     <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                         <button type="button" name="eliminar" (click)="delete(cliente)" class="btn btn-danger"> Eliminar</button>
+                    </td>
+
+                    <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                        <button type="button" [routerLink]="['/facturas/form', cliente.id]" class="btn btn-secondary" >Crear factura</button>
                     </td>
                 </tr>
             </tbody>

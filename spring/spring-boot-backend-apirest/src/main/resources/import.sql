@@ -30,3 +30,20 @@ INSERT INTO clientes (region_id,nombre, apellido, email, create_at) VALUES (7,'U
 INSERT INTO clientes (region_id,nombre, apellido, email, create_at) VALUES (6,'Usuario10', 'Apellido10','usuario10@abc.com','2022-07-01');
 INSERT INTO clientes (region_id,nombre, apellido, email, create_at) VALUES (8,'Usuario11', 'Apellido11','usuario11@abc.com','2022-09-01');
 INSERT INTO clientes (region_id,nombre, apellido, email, create_at) VALUES (3,'Usuario12', 'Apellido12','usuario12@abc.com','2022-10-01');
+
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 01', 25990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 02', 15990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 03', 3990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 04', 5990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 05', 9990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Producto 06', 75990, NOW());
+
+
+INSERT INTO facturas(descripcion, observacion, cliente_id, create_at) VALUES ('Factura 01', null, 1, NOW())
+INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES (1,1,1)
+INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES (2,1,4)
+INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES (1,1,5)
+INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES (1,1,6)
+
+INSERT INTO facturas(descripcion, observacion, cliente_id, create_at) VALUES ('Factura 02', 'Alguna nota', 1, NOW())
+INSERT INTO facturas_items(cantidad, factura_id, producto_id) VALUES (3,2,3)
