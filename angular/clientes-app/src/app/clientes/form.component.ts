@@ -54,6 +54,8 @@ export class FormComponent {
   };
 
   update():void{
+    console.log(this.cliente);
+    this.cliente.facturas = null;
     this.clienteService.update(this.cliente)
     .subscribe(json => {
       this.router.navigate(['/clientes'])
